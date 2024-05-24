@@ -1,44 +1,51 @@
 const Subcategory = require("../models/subcategory");
 
-exports.createSubcategory = async (req, res) => {
+
+exports.createSubcategory = async (requestObject, responseObject) => {
     try {
-        const newSubcategory = new Subcategory(req.body);
-        const savedSubcategory = await newSubcategory.save();
-        res.status(201).json(savedSubcategory);
+        const newSubcategory = await Subcategory(requestObject.body);
+        
+        responseObject.status(201).send(newSubcategory);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.getAllSubcategories = async (req, res) => {
+
+
+exports.getAllSubcategories = async (requestObject, responseObject) => {
     try {
         const subcategories = await Subcategory.find().populate('categoryId');
-        res.status(200).json(subcategories);
+        responseObject.status(200).send(subcategories);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.updateSubcategoryById = async (req, res) => {
+
+exports.updateSubcategoryById = async (requestObject, responseObject) => {
     try {
-        const updatedSubcategory = await Subcategory.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedSubcategory = await Subcategory.findByIdAndUpdate(requestObject.params.id, requestObject.body);
         if (!updatedSubcategory) {
-            return res.status(404).json({ message: "Subcategory not found" });
+            return responseObject.status(404).send({ message: "Subcategory not found" });
         }
-        res.status(200).json(updatedSubcategory);
+        responseObject.status(200).send(updatedSubcategory);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.deleteSubcategoryById = async (req, res) => {
+
+
+
+exports.deleteSubcategoryById = async (requestObject, responseObject) => {
     try {
-        const deletedSubcategory = await Subcategory.findByIdAndDelete(req.params.id);
+        const deletedSubcategory = await Subcategory.findByIdAndDelete(requestObject.params.id);
         if (!deletedSubcategory) {
-            return res.status(404).json({ message: "Subcategory not found" });
+            return responseObject.status(404).send({ message: "Subcategory not found" });
         }
-        res.status(200).json({ message: "Subcategory deleted successfully" });
+        responseObject.status(200).send({ message: "Subcategory deleted successfully" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };

@@ -1,11 +1,11 @@
 const Subscription = require("../models/subscription");
 
-exports.createSubscription = async (req, res) => {
+exports.createSubscription = async (requestObject, responseObject) => {
     try {
-        const newSubscription = new Subscription(req.body);
-        const savedSubscription = await newSubscription.save();
-        res.status(201).json(savedSubscription);
+        const newSubscription = await Subscription.create(requestObject.body);
+
+        responseObject.status(201).send(newSubscription);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };

@@ -1,44 +1,51 @@
 const Category = require("../models/category");
 
-exports.createCategory = async (req, res) => {
+
+
+exports.createCategory = async (requestObject, responseObject) => {
     try {
-        const newCategory = new Category(req.body);
-        const savedCategory = await newCategory.save();
-        res.status(201).json(savedCategory);
+        const newCategory = await Category.create(requestObject.body);
+        responseObject.status(201).send(newCategory);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.getAllCategories = async (req, res) => {
+
+
+exports.getAllCategories = async (requestObject, responseObject) => {
     try {
         const categories = await Category.find();
-        res.status(200).json(categories);
+        responseObject.status(200).send(categories);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.updateCategoryById = async (req, res) => {
+
+exports.updateCategoryById = async (requestObject, responseObject) => {
     try {
-        const updatedCategory = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedCategory = await Category.findByIdAndUpdate(requestObject.params.id, requestObject.body);
         if (!updatedCategory) {
-            return res.status(404).json({ message: "Category not found" });
+            return responseObject.status(404).send({ message: "Category not found" });
         }
-        res.status(200).json(updatedCategory);
+        responseObject.status(200).send(updatedCategory);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.deleteCategoryById = async (req, res) => {
+
+
+
+exports.deleteCategoryById = async (requestObject, responseObject) => {
     try {
-        const deletedCategory = await Category.findByIdAndDelete(req.params.id);
+        const deletedCategory = await Category.findByIdAndDelete(requestObject.params.id);
         if (!deletedCategory) {
-            return res.status(404).json({ message: "Category not found" });
+            return responseObject.status(404).send({ message: "Category not found" });
         }
-        res.status(200).json({ message: "Category deleted successfully" });
+        responseObject.status(200).send({ message: "Category deleted successfully" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };

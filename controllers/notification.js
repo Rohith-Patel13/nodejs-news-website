@@ -1,10 +1,11 @@
 const Notification = require("../models/notification");
 
-exports.getAllNotificationsForUser = async (req, res) => {
+
+exports.getAllNotificationsForUser = async (requestObject, responseObject) => {
     try {
         const notifications = await Notification.find({ userId: req.user_id });
-        res.status(200).json(notifications);
+        responseObject.status(200).send(notifications);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };

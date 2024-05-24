@@ -1,11 +1,11 @@
 const Analytics = require("../models/analytics");
 
-exports.createArticleView = async (req, res) => {
+
+exports.createArticleView = async (requestObject, responseObject) => {
     try {
-        const newView = new Analytics(req.body);
-        const savedView = await newView.save();
-        res.status(201).json(savedView);
+        const newView = await Analytics.create(requestObject.body);
+        responseObject.status(201).send(newView);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };

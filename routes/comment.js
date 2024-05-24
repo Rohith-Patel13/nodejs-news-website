@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const CommentsController = require("../controllers/comments");
-const { authenticateJwtToken } = require("../middleware/auth");
+const CommentsController = require("../controllers/comment");
+const { authenticateJwtToken } = require("../middlewares/auth");
+
 
 // Create a new comment
-router.post("/create", authenticateJwtToken, CommentsController.createComment);
+router.post("/createComment", authenticateJwtToken, CommentsController.createComment);
 
 // Get all comments for an article
-router.get("/getAll/:articleId", CommentsController.getAllCommentsForArticle);
+router.get("/getAllComment/:articleId", CommentsController.getAllCommentsForArticle);
 
 // Delete a comment by id
-router.delete("/delete/:id", authenticateJwtToken, CommentsController.deleteCommentById);
+router.delete("/deleteComment/:id", authenticateJwtToken, CommentsController.deleteCommentById);
 
 module.exports = router;

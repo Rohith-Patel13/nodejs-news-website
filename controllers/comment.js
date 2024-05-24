@@ -1,32 +1,37 @@
 const Comment = require("../models/comment");
 
-exports.createComment = async (req, res) => {
+
+exports.createComment = async (requestObject, responseObject) => {
     try {
-        const newComment = new Comment(req.body);
-        const savedComment = await newComment.save();
-        res.status(201).json(savedComment);
+        const newComment = await Comment.create(requestObject.body);
+        
+        responseObject.status(201).send(newComment);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.getAllCommentsForArticle = async (req, res) => {
+
+
+exports.getAllCommentsForArticle = async (requestObject, responseObject) => {
     try {
-        const comments = await Comment.find({ articleId: req.params.articleId }).populate('userId');
-        res.status(200).json(comments);
+        const comments = await Comment.find({ articleId: requestObject.params.articleId }).populate('userId');
+        responseObject.status(200).send(comments);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.deleteCommentById = async (req, res) => {
+
+
+exports.deleteCommentById = async (requestObject, responseObject) => {
     try {
-        const deletedComment = await Comment.findByIdAndDelete(req.params.id);
+        const deletedComment = await Comment.findByIdAndDelete(requestObject.params.id);
         if (!deletedComment) {
-            return res.status(404).json({ message: "Comment not found" });
+            return responseObject.status(404).send({ message: "Comment not found" });
         }
-        res.status(200).json({ message: "Comment deleted successfully" });
+        responseObject.status(200).send({ message: "Comment deleted successfully" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
