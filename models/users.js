@@ -18,9 +18,10 @@ const userSchema = new Schema({
     profilePicture: { type: String,required:[true,"profile picture must not be empty"] },
     role: {
         type: String,
-        enum: ['user', 'superadmin'],
+        enum: ['user', 'subscriber' ,'superadmin'],
         default: 'user'
-    }
+    },
+    subscriptionStatus:{type:String,enum:['free','paid'],default:'free'}
 },{timestamps:true})
 
 // creating a model
