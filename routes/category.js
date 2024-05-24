@@ -5,6 +5,7 @@ const CategoriesController = require("../controllers/category");
 const { authenticateJwtToken, verifyAdminOrNot } = require("../middlewares/auth");
 
 
+
 // Create a new category
 router.post("/createCategory", authenticateJwtToken, verifyAdminOrNot('superadmin'), CategoriesController.createCategory);
 

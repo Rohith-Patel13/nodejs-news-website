@@ -1,9 +1,11 @@
 const Subcategory = require("../models/subcategory");
 
 
+
+
 exports.createSubcategory = async (requestObject, responseObject) => {
     try {
-        const newSubcategory = await Subcategory(requestObject.body);
+        const newSubcategory = await Subcategory.create(requestObject.body);
         
         responseObject.status(201).send(newSubcategory);
     } catch (error) {
