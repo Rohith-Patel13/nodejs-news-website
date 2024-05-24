@@ -1,6 +1,9 @@
 const express = require("express")
 const mongoose = require("mongoose")
+
 const UserRoutes = require("./routes/users")
+const ArticlesRoutes = require('./routes/article')
+
 const morgan = require("morgan")
 const cors = require("cors")
 require("dotenv").config()
@@ -24,7 +27,7 @@ app.listen(4596,async()=>{
 });
 
 app.use("/api/users",UserRoutes);
-
+app.use('/api/articles',ArticlesRoutes);
 
 app.get("*",async(requestObject,responseObject)=>{
     console.log("Endpoint doesnot exist")

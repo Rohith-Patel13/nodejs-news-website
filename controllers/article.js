@@ -1,56 +1,65 @@
 const Article = require("../models/article");
 
-exports.createArticle = async (req, res) => {
+
+exports.createArticle = async (requestObject, responseObject) => {
+    console.log(requestObject.body)
     try {
-        const newArticle = new Article(req.body);
-        const savedArticle = await newArticle.save();
-        res.status(201).json(savedArticle);
+        const newArticle = await Article.create(requestObject.body);
+        responseObject.status(201).send(newArticle);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.getAllArticles = async (req, res) => {
+
+exports.getAllArticles = async (requestObject, responseObject) => {
     try {
         const articles = await Article.find().populate('authorId').populate('categoryId').populate('subcategoryId');
-        res.status(200).json(articles);
+        responseObject.status(200).send(articles);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.getArticleById = async (req, res) => {
+
+
+exports.getArticleById = async (requestObject, responseObject) => {
     try {
-        const article = await Article.findById(req.params.id).populate('authorId').populate('categoryId').populate('subcategoryId');
+        const article = await Article.findById(requestObject.params.id).populate('authorId').populate('categoryId').populate('subcategoryId');
         if (!article) {
-            return res.status(404).json({ message: "Article not found" });
+            return responseObject.status(404).send({ message: "Article not found" });
         }
-        res.status(200).json(article);
+        responseObject.status(200).send(article);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.updateArticleById = async (req, res) => {
+
+
+
+exports.updateArticleById = async (requestObject, responseObject) => {
     try {
-        const updatedArticle = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedArticle = await Article.findByIdAndUpdate(requestObject.params.id, requestObject.body);
         if (!updatedArticle) {
-            return res.status(404).json({ message: "Article not found" });
+            return responseObject.status(404).send({ message: "Article not found" });
         }
-        res.status(200).json(updatedArticle);
+        responseObject.status(200).send(updatedArticle);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
 
-exports.deleteArticleById = async (req, res) => {
+
+
+exports.deleteArticleById = async (requestObject, responseObject) => {
     try {
-        const deletedArticle = await Article.findByIdAndDelete(req.params.id);
+        const deletedArticle = await Article.findByIdAndDelete(requestObject.params.id);
         if (!deletedArticle) {
-            return res.status(404).json({ message: "Article not found" });
+            return responseObject.status(404).send({ message: "Article not found" });
         }
-        res.status(200).json({ message: "Article deleted successfully" });
+        responseObject.status(200).send({ message: "Article deleted successfully" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responseObject.status(500).send({ error: error.message });
     }
 };
