@@ -25,6 +25,7 @@ app.listen(4596,async()=>{
 
 app.use("/api/users",UserRoutes);
 
+
 app.get("*",async(requestObject,responseObject)=>{
     console.log("Endpoint doesnot exist")
     responseObject.status(404).send("Endpoint doesnot exist")

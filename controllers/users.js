@@ -9,14 +9,14 @@ require("dotenv").config()
 
 exports.registerUser = async(requestObject,responseObject)=>{
     console.log(requestObject.body,"In registerUser")
-    const {name,email,password,profilePicture,role} = requestObject.body
+    const {name,email,password,profilePicture,role,subscriptionStatus} = requestObject.body
     try{
         if(password.length<6){
             return responseObject.send("Password Must Be atleast 6 Characters")
         }
         const encryptedPassoword = await bcrypt.hash(password,Number(process.env.SALT))
         const newRegisteredUser = await User.create({
-            name,email,password:encryptedPassoword,profilePicture,role
+            name,email,password:encryptedPassoword,profilePicture,role,subscriptionStatus
         })
         if(newRegisteredUser){
             const subject = "Registration Confirmed for News Website"
@@ -84,7 +84,7 @@ exports.loginUser=async(requestObject,responseObject)=>{
                     email:existingUser.email,
                     password:existingUser.password,
                     profilePicture:existingUser.profilePicture,
-                    role:existingUser.role
+                    role:existingUser.role,subscriptionStatus:existingUser.subscriptionStatus
                 };
                 const jwtCreatedToken = await jwt.sign(payload, process.env.SECRET_STRING);
                 responseObject.send({
