@@ -64,6 +64,17 @@ exports.updateArticleById = async (requestObject, responseObject) => {
         if (!updatedArticle) {
             return responseObject.status(404).send({ message: "Article not found" });
         }
+        // Fetch all registered users
+        const users = await User.find({}, "email").lean();
+        for (let user of users) {
+            const { _id, email } = user;
+            const notificationsRecord = await Notification.create({
+                userId: _id,
+                message: `Article "${updatedArticle.title}" has been updated.`,
+                sentTo: email
+            });
+            await sendEmailId(notificationsRecord.sentTo, "Article Updated", notificationsRecord.message);
+        }
         responseObject.status(200).send(updatedArticle);
     } catch (error) {
         responseObject.status(500).send({ error: error.message });
