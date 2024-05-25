@@ -19,4 +19,7 @@ router.put("/updateArticleById/:id", authenticateJwtToken, verifyAdminOrNot('sup
 // Delete an article by id
 router.delete("/deleteArticleById/:id", authenticateJwtToken, verifyAdminOrNot('superadmin'), ArticlesController.deleteArticleById);
 
+// Search articles
+router.get("/searchArticles", ArticlesController.searchArticles);
+
 module.exports = router;

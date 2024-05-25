@@ -94,3 +94,22 @@ exports.deleteArticleById = async (requestObject, responseObject) => {
         responseObject.status(500).send({ error: error.message });
     }
 };
+
+
+// Search Functionality: Search articles by title, content, category, tags
+exports.searchArticles = async (requestObject, responseObject) => {
+    try {
+        const { keyword } = requestObject.query;
+        const articles = await Article.find({
+            $or: [
+                { title: { $regex: keyword, $options: "i" } }, // Search by title (case-insensitive)
+                { content: { $regex: keyword, $options: "i" } }, // Search by content (case-insensitive)
+                { tags: { $regex: keyword, $options: "i" } } // Search by tags (case-insensitive)
+            ]
+        }).populate('authorId').populate('categoryId').populate('subcategoryId');
+        responseObject.status(200).send(articles);
+    } catch (error) {
+        responseObject.status(500).send({ error: error.message });
+    }
+};
+
