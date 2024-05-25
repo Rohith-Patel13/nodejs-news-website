@@ -15,7 +15,7 @@ exports.createComment = async (requestObject, responseObject) => {
 
 exports.getAllCommentsForArticle = async (requestObject, responseObject) => {
     try {
-        const comments = await Comment.find({ articleId: requestObject.params.articleId }).populate('userId');
+        const comments = await Comment.find({ articleId: requestObject.params.articleId }).populate('userId').populate('articleId');
         responseObject.status(200).send(comments);
     } catch (error) {
         responseObject.status(500).send({ error: error.message });
