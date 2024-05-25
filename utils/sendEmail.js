@@ -1,8 +1,5 @@
-
 const nodemailer = require("nodemailer");
 require("dotenv").config()
-
-
 
 const sendEmailId = async(email,subject,text)=>{
     // console.log(email,subject,text)
@@ -23,13 +20,12 @@ const sendEmailId = async(email,subject,text)=>{
             subject:subject,
             text:text
         })
-        console.log("Email sent successfully")
-        
+        console.log("Email sent successfully")   
     } catch (error) {
         console.log("Email not sent")
         console.log(error.message,"sendEmailId at catch block")
     }
 }
-
 // Node.js doesn't support ES6 module syntax by default
 module.exports = sendEmailId // Use CommonJS syntax (require/module.exports)
+    

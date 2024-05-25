@@ -1,15 +1,35 @@
 const Article = require("../models/article");
+const User = require("../models/users")
+const Notification = require("../models/notification")
+const sendEmailId = require("../utils/sendEmail");
+
+
 
 
 exports.createArticle = async (requestObject, responseObject) => {
     console.log(requestObject.body)
     try {
         const newArticle = await Article.create(requestObject.body);
+        if(newArticle){
+            // Fetch all registered users
+            const users = await User.find({},"email").lean();// const users = [ { _id: '6090a0f0980df30015a9b9c7', email: 'user1@example.com' },{ _id: '6090a0f0980df30015a9b9c8', email: 'user2@example.com' },{ _id: '6090a0f0980df30015a9b9c9', email: 'user3@example.com' },// More user objects...];
+            console.log(users)
+            for(let user of users){
+                console.log(user)
+                const {_id,email} = user
+                const notificationsRecord=await Notification.create({
+                    userId:_id,message:`New article ${newArticle.title} has been published.`,
+                    sentTo:email
+                })
+                await sendEmailId(notificationsRecord.sentTo,"New Article Published", notificationsRecord.message)
+            }
+        }
         responseObject.status(201).send(newArticle);
     } catch (error) {
         responseObject.status(500).send({ error: error.message });
     }
 };
+
 
 
 exports.getAllArticles = async (requestObject, responseObject) => {
