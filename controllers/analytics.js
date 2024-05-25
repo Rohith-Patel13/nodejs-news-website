@@ -26,3 +26,13 @@ exports.createArticleView = async (requestObject, responseObject) => {
         responseObject.status(500).send({ error: error.message });
     }
 };
+
+
+exports.getAnalytics=async (requestObject,responseObject)=>{
+    try {
+        const getAllAnalytics= await Analytics.find().populate("articleId")
+        responseObject.status(200).send(getAllAnalytics);
+    } catch (error) {
+        responseObject.status(500).send({ error: error.message });       
+    }
+}
