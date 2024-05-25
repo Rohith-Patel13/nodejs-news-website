@@ -2,7 +2,7 @@ const Comment = require("../models/comment");
 
 
 exports.createComment = async (requestObject, responseObject) => {
-    try {
+    try {      
         const newComment = await Comment.create(requestObject.body);
         
         responseObject.status(201).send(newComment);

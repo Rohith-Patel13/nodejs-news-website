@@ -60,6 +60,11 @@ exports.updateUserDetailsById=async(requestObject,responseObject)=>{
     const {id} = params
     const {body} = requestObject
     try {
+        // Ensure the user exists
+        const user = await User.findById(id);
+        if (!user) {
+            throw new Error("User not found");
+        }
         const updatedUserDetails = await User.findByIdAndUpdate(id, body)
         responseObject.status(200).send(updatedUserDetails);
     } catch (error) {
