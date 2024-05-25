@@ -50,6 +50,4 @@ The catch statement defines a code block to handle any error.
 The finally statement defines a code block to run regardless of the result.
 The throw statement defines a custom error.
 Both catch and finally are optional, but you must use one of them.
-
-
 */
