@@ -9,6 +9,9 @@ https://lucid.app/lucidchart/e8148ed5-e8f3-44e3-abc5-215a850b6eb7/edit?viewport_
 https://dbdiagram.io/d/NewsWebsite-DB-Design-6651e52af84ecd1d221f8f3c
 
 
+# Loom video
+https://www.loom.com/share/9a93ef0a295a4c208a6d6dffe99930dd?sid=e0d70ca1-4d1b-4634-a913-16d18ccaa1ab
+
 
 # .env file
 ```sh
