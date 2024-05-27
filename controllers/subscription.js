@@ -25,13 +25,10 @@ exports.createSubscription = async (requestObject, responseObject) => {
             }
 
             // Create the subscription
-            const newSubscription = await Subscription.create(
-                [{ userId, ...requestObject.body }],
-                { session }
-            );
+            const newSubscription = await Subscription.create(requestObject.body, { session });
 
-            // Update the user's subscription status to 'paid'
-            await User.findByIdAndUpdate(userId, { subscriptionStatus: "paid" }, { session });
+            // Update the user's subscription status to 'paid' and role to 'subscriber'
+            await User.findByIdAndUpdate(userId, { subscriptionStatus: "paid", role: "subscriber" }, { session });
 
             responseObject.status(201).send(newSubscription);
         });

@@ -72,6 +72,7 @@ exports.updateUserDetailsById=async(requestObject,responseObject)=>{
     }
 }
 
+
 exports.loginUser=async(requestObject,responseObject)=>{
     console.log(requestObject.body,"login")
     const {email,password} = requestObject.body
