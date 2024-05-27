@@ -1,9 +1,9 @@
 
 # System Design
-https://lucid.app/lucidchart/f0c4113b-57d5-4a50-ab97-ff7d82bbd832/edit?viewport_loc=-699%2C-1517%2C4269%2C1974%2C0_0&invitationId=inv_ac552caf-b628-426c-8e02-67182e4faf58
+https://lucid.app/lucidchart/f0c4113b-57d5-4a50-ab97-ff7d82bbd832/edit?viewport_loc=-584%2C-1541%2C4269%2C1974%2C0_0&invitationId=inv_ac552caf-b628-426c-8e02-67182e4faf58
 
 # HLD Design
-https://lucid.app/lucidchart/e8148ed5-e8f3-44e3-abc5-215a850b6eb7/edit?viewport_loc=-748%2C-1334%2C3826%2C1770%2C0_0&invitationId=inv_e6f55159-8dfa-4c94-8947-1a2266417411
+https://lucid.app/lucidchart/e8148ed5-e8f3-44e3-abc5-215a850b6eb7/edit?viewport_loc=-2527%2C-2787%2C8739%2C4042%2C0_0&invitationId=inv_e6f55159-8dfa-4c94-8947-1a2266417411
 
 # DB Design
 https://dbdiagram.io/d/NewsWebsite-DB-Design-6651e52af84ecd1d221f8f3c
