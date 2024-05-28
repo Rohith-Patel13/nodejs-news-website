@@ -30,7 +30,6 @@ exports.registerUser = async(requestObject,responseObject)=>{
     }
 }
 
-
 exports.getAllRegisteredUsers = async(requestObject,responseObject)=>{
     console.log("In getAllRegisteredUsers");
     try {
